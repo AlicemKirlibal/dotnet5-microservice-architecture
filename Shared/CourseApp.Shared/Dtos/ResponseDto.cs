@@ -17,7 +17,7 @@ namespace CourseApp.Shared.Dtos
 
 
         // Static Factory Methods
-        //if you return an object with static methods this means static factory method
+        //if you return a new object with static methods this means static factory method
         public static ResponseDto<T> Success(T data,int statusCode)
         {
             return new ResponseDto<T> { Data = data, StatusCode = statusCode, IsSuccess = true };
