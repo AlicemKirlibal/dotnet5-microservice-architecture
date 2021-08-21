@@ -1,2 +1,2 @@
 Services
--catalog=> http://localhost:5011
+-catalogAPI=> http://localhost:5011
