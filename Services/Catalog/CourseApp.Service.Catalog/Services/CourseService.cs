@@ -51,14 +51,24 @@ namespace CourseApp.Service.Catalog.Services
 
         public async Task<Response<CourseDto>> GetByIdAsync(string id)
         {
-            var course = await _courseCollection.Find(i => i.Id == id).FirstOrDefaultAsync();
-
-            if (course == null)
+            try
             {
-                Response<CourseDto>.Fail("Data couldnt found", 404);
-            }
+                var course = await _courseCollection.Find(i => i.Id == id).FirstOrDefaultAsync();
 
-            return Response<CourseDto>.Success(_mapper.Map<CourseDto>(course),200);
+                if (course == null)
+                {
+                    Response<CourseDto>.Fail("Data couldnt found", 404);
+                }
+               
+                    return Response<CourseDto>.Success(_mapper.Map<CourseDto>(course), 200);
+                
+            }
+            catch (Exception)
+            {
+
+               return Response<CourseDto>.Fail("Data couldnt found", 404); ;
+            }
+          
         }
 
         public async Task<Response<CourseDto>> CreateAsync(CourseCreateDto createDto)
@@ -89,17 +99,30 @@ namespace CourseApp.Service.Catalog.Services
 
         public async Task<Response<NoContent>> DeleteAsync(string id)
         {
-            var result = await _courseCollection.DeleteOneAsync(i=>i.Id==id);
 
-            if (result.DeletedCount>0)
+            try
             {
-                return Response<NoContent>.Success(204);
-            }
-            else
-            {
-                return Response<NoContent>.Fail("Course couldnt found", 404);
 
+                var result = await _courseCollection.DeleteOneAsync(i => i.Id == id);
+
+                if (result.DeletedCount > 0)
+                {
+                    return Response<NoContent>.Success(204);
+                }
+                else
+                {
+                    return Response<NoContent>.Fail("Course couldnt found", 404);
+
+                }
             }
+            catch (Exception)
+            {
+
+                return Response<NoContent>.Fail("Course couldnt found", 404); ;
+            }
+
+
+
 
         }
 

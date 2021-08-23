@@ -20,6 +20,8 @@ namespace CourseApp.Service.Catalog.Controllers
         {
             _couserService = couserService;
         }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var response = await _couserService.GetAllAsync();

@@ -47,14 +47,23 @@ namespace CourseApp.Service.Catalog.Services
 
         public async Task<Response<CategoryDto>> GetByIdAsync(string id)
         {
-            var category = await _categoryCollection.Find<Category>(i => i.Id == id).FirstOrDefaultAsync();
-
-            if (category==null)
+            try
             {
-                Response<CategoryDto>.Fail("Data couldnt found",404);
-            }
+                var category = await _categoryCollection.Find<Category>(i => i.Id == id).FirstOrDefaultAsync();
 
-            return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category),200);
+                if (category == null)
+                {
+                    Response<CategoryDto>.Fail("Data couldnt found", 404);
+                }
+
+                return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category), 200);
+            }
+            catch (Exception)
+            {
+
+             return  Response<CategoryDto>.Fail("Data couldnt found", 404);
+            }
+           
         }
 
         public async Task<Response<NoContent>> UpdateAsync(CategoryDto categoryDto)
@@ -73,16 +82,27 @@ namespace CourseApp.Service.Catalog.Services
 
         public async Task<Response<NoContent>> DeleteAsync(string id)
         {
-            var deletedCategory = await _categoryCollection.DeleteOneAsync(i=>i.Id==id);
+            try
+            {
 
-            if (deletedCategory.DeletedCount>0)
-            {
-                return Response<NoContent>.Success(204);
+                var deletedCategory = await _categoryCollection.DeleteOneAsync(i => i.Id == id);
+
+                if (deletedCategory.DeletedCount > 0)
+                {
+                    return Response<NoContent>.Success(204);
+                }
+                else
+                {
+                    return Response<NoContent>.Fail("Catgory couldnt found", 404);
+                }
             }
-            else
+            catch (Exception)
             {
+
                 return Response<NoContent>.Fail("Catgory couldnt found", 404);
             }
+
+
           
 
         }
