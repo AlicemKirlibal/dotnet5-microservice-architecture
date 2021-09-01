@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{7A9B036C-A0F2-4299-ABF4-BB8E26033992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.Service.Catalog", "Services\Catalog\CourseApp.Service.Catalog\CourseApp.Service.Catalog.csproj", "{4C434FAB-42C3-4246-8F7D-2C66F99EAE72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseApp.Service.Catalog", "Services\Catalog\CourseApp.Service.Catalog\CourseApp.Service.Catalog.csproj", "{4C434FAB-42C3-4246-8F7D-2C66F99EAE72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{099225DB-13AB-4223-86D6-D23CFB98D539}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,7 +16,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{74DFD736-8887-4359-9977-E1ACF11CD212}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.Shared", "Shared\CourseApp.Shared\CourseApp.Shared.csproj", "{791B5F52-3DD9-410D-8DE1-AA24549E1B20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseApp.Shared", "Shared\CourseApp.Shared\CourseApp.Shared.csproj", "{791B5F52-3DD9-410D-8DE1-AA24549E1B20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{3380FA7C-9B24-4EFA-9B4F-48CB4A4D634E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseApp.IdentityServer", "IdentityServer\CourseApp.IdentityServer\CourseApp.IdentityServer.csproj", "{1FE9775D-9028-4DE8-9ED4-628FC2D74DDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStock", "PhotoStock", "{C7FC9912-3AD0-44D4-8C12-832F2DDDB523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseApp.Services.PhotoStock", "Services\PhotoStock\CourseApp.Services.PhotoStock\CourseApp.Services.PhotoStock.csproj", "{CC88EFFD-2BAF-4E57-83A9-EE2DD8EF65B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +40,14 @@ Global
 		{791B5F52-3DD9-410D-8DE1-AA24549E1B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{791B5F52-3DD9-410D-8DE1-AA24549E1B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{791B5F52-3DD9-410D-8DE1-AA24549E1B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE9775D-9028-4DE8-9ED4-628FC2D74DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE9775D-9028-4DE8-9ED4-628FC2D74DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE9775D-9028-4DE8-9ED4-628FC2D74DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE9775D-9028-4DE8-9ED4-628FC2D74DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC88EFFD-2BAF-4E57-83A9-EE2DD8EF65B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC88EFFD-2BAF-4E57-83A9-EE2DD8EF65B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC88EFFD-2BAF-4E57-83A9-EE2DD8EF65B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC88EFFD-2BAF-4E57-83A9-EE2DD8EF65B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +56,9 @@ Global
 		{7A9B036C-A0F2-4299-ABF4-BB8E26033992} = {8E22C12A-B908-421D-9EC1-E9DD3258E6F9}
 		{4C434FAB-42C3-4246-8F7D-2C66F99EAE72} = {7A9B036C-A0F2-4299-ABF4-BB8E26033992}
 		{791B5F52-3DD9-410D-8DE1-AA24549E1B20} = {74DFD736-8887-4359-9977-E1ACF11CD212}
+		{1FE9775D-9028-4DE8-9ED4-628FC2D74DDF} = {3380FA7C-9B24-4EFA-9B4F-48CB4A4D634E}
+		{C7FC9912-3AD0-44D4-8C12-832F2DDDB523} = {8E22C12A-B908-421D-9EC1-E9DD3258E6F9}
+		{CC88EFFD-2BAF-4E57-83A9-EE2DD8EF65B3} = {C7FC9912-3AD0-44D4-8C12-832F2DDDB523}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BB8EF04-30AC-4CBF-B9E4-9C25FF5D9E24}
