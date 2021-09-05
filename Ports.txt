@@ -1,2 +1,3 @@
 Services
 -catalogAPI=> http://localhost:5011
+-photoStockAPI=> http://localhost:5012
