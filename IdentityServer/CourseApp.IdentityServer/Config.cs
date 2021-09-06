@@ -15,6 +15,7 @@ namespace CourseApp.IdentityServer
         {
             new ApiResource("resource_catalog"){Scopes={"catalog_fullpermission"}},
             new ApiResource("resource_photo_stock_catalog"){Scopes={"photo_stock_fullpermission"}},
+            new ApiResource("resource_basket"){Scopes={"basket_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName),
         };
 
@@ -33,6 +34,7 @@ namespace CourseApp.IdentityServer
             {
                 new ApiScope("catalog_fullpermission","all permisson for catalog API"),
                 new ApiScope("photo_stock_fullpermission","all permisson for photoStock API"),
+                new ApiScope("basket_fullpermission","all permisson for basket API"),
                  new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
 
             };
@@ -47,7 +49,7 @@ namespace CourseApp.IdentityServer
                     ClientSecrets={new Secret("secret".Sha256())},
                     AllowedGrantTypes=GrantTypes.ClientCredentials,
                     AllowedScopes={ "catalog_fullpermission", "photo_stock_fullpermission",IdentityServerConstants.LocalApi.ScopeName }
-                },  
+                },
                 new Client
                 {
                     ClientName="Asp.Net Core MVC",
@@ -55,7 +57,7 @@ namespace CourseApp.IdentityServer
                     AllowOfflineAccess=true,
                     ClientSecrets={new Secret("secret".Sha256())},
                     AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes={IdentityServerConstants.StandardScopes.Email,IdentityServerConstants.StandardScopes.OpenId,
+                    AllowedScopes={"basket_fullpermission",IdentityServerConstants.StandardScopes.Email,IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServerConstants.LocalApi.ScopeName,"roles" },
                     AccessTokenLifetime=1*60*60,
