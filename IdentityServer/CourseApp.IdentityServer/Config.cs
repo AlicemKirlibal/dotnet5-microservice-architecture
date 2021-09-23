@@ -17,6 +17,8 @@ namespace CourseApp.IdentityServer
             new ApiResource("resource_photo_stock_catalog"){Scopes={"photo_stock_fullpermission"}},
             new ApiResource("resource_basket"){Scopes={"basket_fullpermission"}},
             new ApiResource("resource_discount"){Scopes={"discount_fullpermission"}},
+            new ApiResource("resource_order"){Scopes={"order_fullpermission"}},
+            new ApiResource("resource_payment"){Scopes={"payment_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName),
         };
 
@@ -37,6 +39,8 @@ namespace CourseApp.IdentityServer
                 new ApiScope("photo_stock_fullpermission","all permisson for photoStock API"),
                 new ApiScope("basket_fullpermission","all permisson for basket API"),
                 new ApiScope("discount_fullpermission","all permisson for discount API"),
+                new ApiScope("order_fullpermission","all permisson for order API"),
+                new ApiScope("payment_fullpermission","all permisson for payment API"),
                  new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
 
             };
@@ -59,7 +63,7 @@ namespace CourseApp.IdentityServer
                     AllowOfflineAccess=true,
                     ClientSecrets={new Secret("secret".Sha256())},
                     AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes={"basket_fullpermission","discount_fullpermission",IdentityServerConstants.StandardScopes.Email,IdentityServerConstants.StandardScopes.OpenId,
+                    AllowedScopes={"basket_fullpermission","discount_fullpermission","order_fullpermission","payment_fullpermission",IdentityServerConstants.StandardScopes.Email,IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServerConstants.LocalApi.ScopeName,"roles" },
                     AccessTokenLifetime=1*60*60,
