@@ -16,6 +16,7 @@ namespace CourseApp.Service.Basket.Services.Concrete
 
         public RedisService(string host, int port)
         {
+
             _host = host;
             _port = port;
         }
