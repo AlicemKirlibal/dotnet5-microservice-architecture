@@ -8,6 +8,6 @@ namespace CourseApp.Web.Services.Abstract
 {
    public interface IUserService
     {
-        Task<UserVM> GetUser();
+        Task<UserViewModel> GetUser();
     }
 }

@@ -18,9 +18,9 @@ namespace CourseApp.Web.Services.Concrete
             _httpClient = httpClient;
         }
 
-        public async Task<UserVM> GetUser()
+        public async Task<UserViewModel> GetUser()
         {
-            return await _httpClient.GetFromJsonAsync<UserVM>("/api/user/getuser");
+            return await _httpClient.GetFromJsonAsync<UserViewModel>("/api/user/getuser");
         }
     }
 }
