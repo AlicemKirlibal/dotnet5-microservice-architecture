@@ -6,3 +6,4 @@ Services
 -OrderAPI=>http://localhost:5015
 -PaymentAPI=>http://localhost:5016
 -Gateway=>http://localhost:5000
+-Web=>http://localhost:5010

@@ -1,3 +1,5 @@
+using CourseApp.Shared.Services.Abstract;
+using CourseApp.Shared.Services.Concrete;
 using CourseApp.Web.Handler;
 using CourseApp.Web.Models;
 using CourseApp.Web.Services.Abstract;
@@ -17,7 +19,7 @@ namespace CourseApp.Web
 {
     public class Startup
     {
-        private ServiceApiSettings serviceApiSettings;
+      
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,16 +31,29 @@ namespace CourseApp.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddHttpContextAccessor();
+            services.AddAccessTokenManagement();
             services.AddHttpClient<IIdentityService, IdentityService>();
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
 
-            services.AddHttpClient<IUserService, UserService>(opt =>
+            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            services.AddScoped<ClientCredentialTokenHandler>();
+
+
+            services.AddHttpClient<ICatalogService, CatalogSeervice>(opt =>
+             {
+                 opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
+             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
             {
-                opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
-            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.PhotoStock.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
 
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie
