@@ -21,7 +21,7 @@ namespace CourseApp.Web.Services.Concrete
 
         public async Task<bool> AddCourseAsync(CreateCourseViewModel createCourse)
         {
-            var response = await _httpClient.PostAsJsonAsync<CreateCourseViewModel>("courses", createCourse);
+            var response = await _httpClient.PostAsJsonAsync<CreateCourseViewModel>("course", createCourse);
 
             return response.IsSuccessStatusCode;
            
@@ -29,13 +29,13 @@ namespace CourseApp.Web.Services.Concrete
 
         public async Task<bool> DeleteCourseAsync(string courseId)
         {
-            var response = await _httpClient.DeleteAsync($"courses/{courseId}");
+            var response = await _httpClient.DeleteAsync($"course/{courseId}");
             return response.IsSuccessStatusCode;
         }
 
         public async Task<List<CategoryViewModel>> GetAllCategoryAsync()
         {
-            var response = await _httpClient.GetAsync("categories");
+            var response = await _httpClient.GetAsync("category");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -49,7 +49,7 @@ namespace CourseApp.Web.Services.Concrete
 
         public async Task<List<CourseViewModel>> GetAllCourseAsync()
         {
-            var response = await _httpClient.GetAsync("courses");
+            var response = await _httpClient.GetAsync("course");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -77,7 +77,7 @@ namespace CourseApp.Web.Services.Concrete
 
         public async Task<List<CourseViewModel>> GetCourseByUserIdAsync(string userId)
         {
-            var response = await _httpClient.GetAsync($"courses/GetAllByUserId/{userId}");
+            var response = await _httpClient.GetAsync($"course/GetAllByUserId/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -92,7 +92,7 @@ namespace CourseApp.Web.Services.Concrete
 
         public async Task<bool> UpdateCourseAsync(UpdateViewModel updateCourse)
         {
-            var response = await _httpClient.PutAsJsonAsync<UpdateViewModel>("courses", updateCourse);
+            var response = await _httpClient.PutAsJsonAsync<UpdateViewModel>("course", updateCourse);
 
             return response.IsSuccessStatusCode;
 
