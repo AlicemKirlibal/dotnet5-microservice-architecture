@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,9 +16,13 @@ namespace CourseApp.Web.Models.Catalogs
 
         public string Description { get; set; }
 
+        public string ShortDescription { get => Description.Length > 100 ? Description.Substring(0, 100) + "..." : Description; }
+
         public string UserId { get; set; }
 
         public string Picture { get; set; }
+
+        public string ShortPictureUrl { get; set; }
 
 
         public DateTime CreatedTime { get; set; }
@@ -29,5 +34,7 @@ namespace CourseApp.Web.Models.Catalogs
 
 
         public CategoryViewModel Category { get; set; }
+
+        public IFormFile PhotoFormFile { get; set; }
     }
 }
