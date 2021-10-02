@@ -1,4 +1,5 @@
 ﻿using CourseApp.Shared.Dtos;
+using CourseApp.Web.Helpers;
 using CourseApp.Web.Models.Catalogs;
 using CourseApp.Web.Services.Abstract;
 using System;
@@ -13,14 +14,26 @@ namespace CourseApp.Web.Services.Concrete
     public class CatalogSeervice : ICatalogService
     {
         private readonly HttpClient _httpClient;
+        private readonly IPhotoStockService _photoStockService;
+        private readonly PhotoHelper _photoHelper;
 
-        public CatalogSeervice(HttpClient httpClient)
+        public CatalogSeervice(HttpClient httpClient, IPhotoStockService photoStockService, PhotoHelper photoHelper)
         {
             _httpClient = httpClient;
+            _photoStockService = photoStockService;
+            _photoHelper = photoHelper;
         }
 
         public async Task<bool> AddCourseAsync(CreateCourseViewModel createCourse)
         {
+            var resultPhotoService = await _photoStockService.UploadPhoto(createCourse.PhotoFormFile);
+
+            if (resultPhotoService != null)
+            {
+                createCourse.Picture = resultPhotoService.Url;
+            }
+
+
             var response = await _httpClient.PostAsJsonAsync<CreateCourseViewModel>("course", createCourse);
 
             return response.IsSuccessStatusCode;
@@ -58,6 +71,11 @@ namespace CourseApp.Web.Services.Concrete
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
 
+            responseSuccess.Data.ForEach(x =>
+            {
+                x.ShortPictureUrl = _photoHelper.GetPhotoStockUrl(x.Picture);
+            });
+
             return responseSuccess.Data;
         }
 
@@ -71,6 +89,9 @@ namespace CourseApp.Web.Services.Concrete
             }
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<CourseViewModel>>();
+
+            responseSuccess.Data.ShortPictureUrl = _photoHelper.GetPhotoStockUrl(responseSuccess.Data.Picture);
+
 
             return responseSuccess.Data;
         }
@@ -86,12 +107,29 @@ namespace CourseApp.Web.Services.Concrete
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
 
+            responseSuccess.Data.ForEach(x =>
+            {
+                x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+            });
+
+
             return responseSuccess.Data;
 
         }
 
         public async Task<bool> UpdateCourseAsync(UpdateViewModel updateCourse)
         {
+
+
+            var resultPhotoService = await _photoStockService.UploadPhoto(updateCourse.PhotoFormFile);
+
+            if (resultPhotoService != null)
+            {
+                await _photoStockService.DeletePhoto(updateCourse.Picture);
+                updateCourse.Picture = resultPhotoService.Url;
+            }
+
+
             var response = await _httpClient.PutAsJsonAsync<UpdateViewModel>("course", updateCourse);
 
             return response.IsSuccessStatusCode;
