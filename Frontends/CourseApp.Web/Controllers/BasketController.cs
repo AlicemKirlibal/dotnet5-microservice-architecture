@@ -1,4 +1,5 @@
 ﻿using CourseApp.Web.Models.Baskets;
+using CourseApp.Web.Models.Discounts;
 using CourseApp.Web.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -44,6 +45,28 @@ namespace CourseApp.Web.Controllers
 
             return RedirectToAction(nameof(Index));
 
+        }
+
+        public async Task<IActionResult> ApplyDiscount(DiscountApplyInput discountApply)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                TempData["discountError"] = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).First();
+            }
+
+            var discountStatus = await _basketService.ApplyDiscount(discountApply.Code);
+
+            TempData["discountStatus"] = discountStatus;
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> CancelApplyDiscount()
+        {
+            await _basketService.CancelApplyDiscount();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

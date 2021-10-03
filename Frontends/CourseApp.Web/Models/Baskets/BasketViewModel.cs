@@ -7,6 +7,11 @@ namespace CourseApp.Web.Models.Baskets
 {
     public class BasketViewModel
     {
+        public BasketViewModel()
+        {
+            _basketItems = new List<BasketItemViewModel>();
+        }
+
         public string UserId { get; set; }
         public string DiscountCode { get; set; }
 
@@ -39,7 +44,7 @@ namespace CourseApp.Web.Models.Baskets
 
         public bool HasDiscount
         {
-            get => !string.IsNullOrEmpty(DiscountCode);
+            get => !string.IsNullOrEmpty(DiscountCode)&&DiscountRate.HasValue;
         }
 
 
