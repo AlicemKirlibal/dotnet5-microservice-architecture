@@ -1,4 +1,5 @@
-﻿using CourseApp.Shared.Controllers;
+﻿using CourseApp.Services.FakePayment.Model;
+using CourseApp.Shared.Controllers;
 using CourseApp.Shared.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace CourseApp.Services.FakePayment.Controllers
 
 
         [HttpPost]
-        public  IActionResult ReceivePayment()
+        public  IActionResult ReceivePayment(PaymentDto paymentDto)
         {
             return CreateActionResultInstance(Response<NoContent>.Success(200));
         }
