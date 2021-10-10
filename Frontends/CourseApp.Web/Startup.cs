@@ -1,9 +1,13 @@
 using CourseApp.Shared.Services.Abstract;
 using CourseApp.Shared.Services.Concrete;
+using CourseApp.Web.Extensions;
 using CourseApp.Web.Handler;
+using CourseApp.Web.Helpers;
 using CourseApp.Web.Models;
 using CourseApp.Web.Services.Abstract;
 using CourseApp.Web.Services.Concrete;
+using CourseApp.Web.Validators;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,27 +38,17 @@ namespace CourseApp.Web
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddHttpContextAccessor();
             services.AddAccessTokenManagement();
-            services.AddHttpClient<IIdentityService, IdentityService>();
+            services.AddSingleton<PhotoHelper>();
+
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
-
-            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
             services.AddScoped<ClientCredentialTokenHandler>();
 
 
-            services.AddHttpClient<ICatalogService, CatalogSeervice>(opt =>
-             {
-                 opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
-             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
-            services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
-            {
-                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.PhotoStock.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-
+            services.AddHttpClientServices(Configuration);
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie
                 (CookieAuthenticationDefaults.AuthenticationScheme, options =>
@@ -69,7 +63,7 @@ namespace CourseApp.Web
 
 
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CourseCreateInputValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
