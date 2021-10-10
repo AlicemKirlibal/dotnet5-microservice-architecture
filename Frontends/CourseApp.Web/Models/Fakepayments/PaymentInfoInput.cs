@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseApp.Web.Models.Orders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +13,7 @@ namespace CourseApp.Web.Models.Fakepayments
         public string Expiration { get; set; }
         public string CVV { get; set; }
         public decimal TotalPrice { get; set; }
+
+        public OrderCreateInput Order { get; set; }
     }
 }
