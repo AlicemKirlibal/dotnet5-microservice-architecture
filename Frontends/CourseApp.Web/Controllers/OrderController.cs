@@ -54,6 +54,11 @@ namespace CourseApp.Web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> CheckoutHistory()
+        {
+            return View(await _orderService.GetOrder());
+        }
+
 
     }
 }

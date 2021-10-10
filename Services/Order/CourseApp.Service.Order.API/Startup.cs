@@ -43,6 +43,7 @@ namespace CourseApp.Service.Order.API
             {
 
                 x.AddConsumer<CreateOrderMessageCommandConsumer>();
+                x.AddConsumer<CourseNameChangedEventConsumer>();
 
 
                 x.UsingRabbitMq((context, cfg) =>
@@ -56,6 +57,11 @@ namespace CourseApp.Service.Order.API
                     cfg.ReceiveEndpoint("create-order-service", e =>
                     {
                         e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+                    }); 
+
+                    cfg.ReceiveEndpoint("course-name-changed-event-order-service", e =>
+                    {
+                        e.ConfigureConsumer<CourseNameChangedEventConsumer>(context);
                     });
 
                 });
